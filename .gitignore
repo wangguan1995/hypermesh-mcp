@@ -7,7 +7,7 @@ __pycache__/
 # HyperMesh runtime artifacts
 *.tcl
 ct_reader.log
-*.out.hm
+*_out.hm
 runs/
 *.log
 
