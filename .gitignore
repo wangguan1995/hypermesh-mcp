@@ -8,6 +8,7 @@ __pycache__/
 *.tcl
 ct_reader.log
 *_out.hm
+outputs/
 runs/
 *.log
 
