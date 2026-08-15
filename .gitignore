@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# HyperMesh runtime artifacts
+*.tcl
+ct_reader.log
+*.out.hm
+runs/
+*.log
+
+# Misc
+.DS_Store
