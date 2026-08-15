@@ -2289,7 +2289,7 @@ close $f
 
 @mcp.tool()
 def generate_mesh(port: Optional[int] = None) -> dict:
-    pwd = Path("C:\\Users\\Administrator\\Desktop\\AI4S_Course\\opencode\\")
+    pwd = PROJECT_DIR
     from run_full_meshing_workflow import run_workflow
     result = run_workflow(str(pwd / "workflow_params.json"))
     return result
