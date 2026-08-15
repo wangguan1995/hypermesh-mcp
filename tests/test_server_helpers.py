@@ -15,6 +15,7 @@ from hypermesh_mcp_server import (  # noqa: E402
     _probe_float_list_value,
     _unit_vector,
     _perpendicular_unit_vector,
+    _probe_lines_iter,
     _recommended_timeout_from_script,
     _wrap_generated_tcl,
     _unwrap_generated_tcl,
@@ -356,3 +357,47 @@ class TestScriptDiagSummary:
         summary = _script_diag_summary(long_script)
         assert len(summary["first_markers"]) <= 8
         assert len(summary["last_markers"]) <= 8
+
+
+class TestProbeLinesIter:
+    def test_none_returns_empty(self):
+        assert _probe_lines_iter(None) == []
+
+    def test_empty_string(self):
+        assert _probe_lines_iter("") == []
+
+    def test_single_line_string(self):
+        assert _probe_lines_iter("hello") == ["hello"]
+
+    def test_multi_line_string(self):
+        result = _probe_lines_iter("line1\nline2\nline3")
+        assert result == ["line1", "line2", "line3"]
+
+    def test_list_of_strings(self):
+        result = _probe_lines_iter(["a", "b", "c"])
+        assert result == ["a", "b", "c"]
+
+    def test_tuple_of_strings(self):
+        result = _probe_lines_iter(("x", "y"))
+        assert result == ["x", "y"]
+
+    def test_list_of_ints_converted(self):
+        result = _probe_lines_iter([1, 2, 3])
+        assert result == ["1", "2", "3"]
+
+    def test_mixed_list(self):
+        result = _probe_lines_iter([1, "abc", None])
+        assert result == ["1", "abc", "None"]
+
+    def test_empty_list(self):
+        assert _probe_lines_iter([]) == []
+
+    def test_empty_tuple(self):
+        assert _probe_lines_iter(()) == []
+
+    def test_trailing_newline(self):
+        assert _probe_lines_iter("a\nb\n") == ["a", "b"]
+
+    def test_carriage_return_newline(self):
+        result = _probe_lines_iter("a\r\nb")
+        assert result == ["a", "b"]
